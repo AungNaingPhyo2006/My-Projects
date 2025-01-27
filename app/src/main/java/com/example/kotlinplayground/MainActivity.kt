@@ -14,16 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinplayground.ui.theme.KotlinPlayGroundTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val calculatorViewModel = ViewModelProvider(this)[CalculatorViewModel::class.java]
         enableEdgeToEdge()
         setContent {
             KotlinPlayGroundTheme {
                 Scaffold (modifier = Modifier.fillMaxSize()){ innerPadding ->
-                    Calculator(modifier = Modifier.padding(innerPadding))
+                    Calculator(modifier = Modifier.padding(innerPadding), calculatorViewModel)
                 }
             }
         }
