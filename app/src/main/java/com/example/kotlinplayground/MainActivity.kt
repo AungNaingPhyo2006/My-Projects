@@ -15,39 +15,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 import com.example.kotlinplayground.ui.theme.KotlinPlayGroundTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val newsViewModel = ViewModelProvider(this)[NewsViewModel::class.java]
         setContent {
-            val navController = rememberNavController()
             KotlinPlayGroundTheme {
-                Scaffold (modifier = Modifier.fillMaxSize()){ innerPadding ->
-                    Column (modifier = Modifier.padding(innerPadding).fillMaxWidth()){
-                        Text( text="News Now",
-                            modifier = Modifier.align(Alignment.CenterHorizontally),
-                            color = Color.Red, fontSize = 25.sp, fontFamily = FontFamily.Serif)
-                        NavHost(navController = navController, startDestination = HomePageScreen){
-                            composable<HomePageScreen>{
-                                HomePage(newsViewModel, navController)
-                            }
-                            composable<NewsArticleScreen>{
-                                val args = it.toRoute<NewsArticleScreen>()
-                                NewsArticlePage(args.url)
-                            }
-                        }
-                    }
+                MainScreen()
                 }
             }
         }
     }
-}
+
 
