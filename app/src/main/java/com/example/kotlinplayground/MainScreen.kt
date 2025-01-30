@@ -1,5 +1,6 @@
 package com.example.kotlinplayground
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -62,7 +63,8 @@ fun MainScreen(modifier: Modifier = Modifier) {
                         },
                         label = {
                             Text(text = navItem.label)
-                        }
+                        },
+                        interactionSource = remember { MutableInteractionSource() },
                     )
                 }
             }
