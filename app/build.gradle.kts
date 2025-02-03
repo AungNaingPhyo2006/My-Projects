@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.kotlinplayground"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.kotlinplayground"
@@ -65,7 +65,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     implementation (libs.coil.compose)
     implementation("com.github.KwabenBerko:News-API-Java:1.0.2")
-    val nav_version = "2.8.5"
+    val nav_version = "2.8.6"
     implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 }
