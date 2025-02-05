@@ -79,7 +79,7 @@ fun TodoItem(item :Todo , onDelete : ()->Unit) {
         .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically) {
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = SimpleDateFormat("HH:mm:aa , dd/mm", Locale.ENGLISH).format(item.createdAt)
+            Text(text = SimpleDateFormat("HH:mm:aa , dd/MM/yy", Locale.ENGLISH).format(item.createdAt)
             ,fontSize=10.sp,color = Color.Gray
             )
             Text(text = item.title, fontSize=20.sp, color = Color.White)
