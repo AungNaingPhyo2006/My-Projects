@@ -11,12 +11,11 @@ import androidx.compose.ui.Modifier
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MainScreen(todoViewModel: TodoViewModel) {
+fun MainScreen() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-
     ) { innerPadding ->
-        TodoListPage( modifier = Modifier.padding(innerPadding), todoViewModel)
+        LoginScreen( modifier = Modifier.padding(innerPadding))
     }
 }
 
