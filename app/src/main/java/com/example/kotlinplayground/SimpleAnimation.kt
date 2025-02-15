@@ -14,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import androidx.compose.animation.core.Animatable
+import androidx.compose.ui.draw.rotate
 
 @Composable
 fun SimpleAnimation(modifier: Modifier = Modifier) {
@@ -24,7 +25,7 @@ fun SimpleAnimation(modifier: Modifier = Modifier) {
     // Start animation when this composable is launched or state changes
     LaunchedEffect(key1 = animateAgain.value) {
         scale.animateTo(
-            targetValue = 1f,
+            targetValue = 360f,
             animationSpec = tween(
                 durationMillis = 2000,
                 easing = { OvershootInterpolator(2f).getInterpolation(it) }
@@ -40,7 +41,7 @@ fun SimpleAnimation(modifier: Modifier = Modifier) {
         Image(
             modifier = Modifier
                 .size(200.dp)
-                .scale(scale.value),
+                .rotate(scale.value),
             painter = painterResource(id = R.drawable.mom_image),
             contentDescription = "Animated Image"
         )
