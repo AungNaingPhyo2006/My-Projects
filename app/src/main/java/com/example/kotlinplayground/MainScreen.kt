@@ -15,7 +15,7 @@ fun MainScreen() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
-        LoginScreen( modifier = Modifier.padding(innerPadding))
+        SimpleAnimation( modifier = Modifier.padding(innerPadding))
     }
 }
 
