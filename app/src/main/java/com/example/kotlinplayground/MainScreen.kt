@@ -31,11 +31,11 @@ fun MainScreen(todoViewModel: TodoViewModel) {
                 SuccessPage( navController ,modifier = Modifier.padding(innerPadding),todoViewModel)
             }
         }
-        composable(Routes.todoListPage) {
+        composable(Routes.topupHistory) {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
             ) { innerPadding ->
-                TodoListPage(modifier = Modifier.padding(innerPadding), todoViewModel)
+                TopupHistory(navController , modifier = Modifier.padding(innerPadding), todoViewModel)
             }
         }
     }

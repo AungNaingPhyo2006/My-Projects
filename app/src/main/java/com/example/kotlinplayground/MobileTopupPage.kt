@@ -220,7 +220,6 @@ fun MobileTopup(navController: NavController,modifier: Modifier = Modifier , vie
                 confirmButton = {
                     TextButton(onClick = {
                         if(operatorName.value.isNotEmpty() && operatorName.value != "Unknown"){
-
                             viewModel.addTodo(
                                 packageName = packageName,
                                 operatorName = operatorName.value,
@@ -229,7 +228,6 @@ fun MobileTopup(navController: NavController,modifier: Modifier = Modifier , vie
                             )
                             alertMessage.value = ""
                             showDialog.value = false
-//                            navController.navigate(Routes.todoListPage)
                             navController.navigate(Routes.successScreen + "/${packageName}/${price}/${operatorName.value}/${phoneNumber.value.text}")
                         }else{
                             if( phoneNumber.value.text.isEmpty() ||operatorName.value == "Unknown"){
@@ -253,7 +251,7 @@ fun MobileTopup(navController: NavController,modifier: Modifier = Modifier , vie
         }
 
         Button(onClick = {
-            navController.navigate(Routes.todoListPage)
+            navController.navigate(Routes.topupHistory)
         }) {
             Text( text = "History")
         }
