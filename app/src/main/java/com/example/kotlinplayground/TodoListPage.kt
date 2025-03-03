@@ -38,7 +38,6 @@ import java.util.Locale
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TodoListPage(modifier: Modifier = Modifier, viewModel : TodoViewModel) {
-//    val todoList = getFakeTodo()
     val todoList by viewModel.todoList.observeAsState()
     var inputText by remember { mutableStateOf("") }
     Column (modifier = modifier.fillMaxWidth()) {
@@ -49,7 +48,7 @@ fun TodoListPage(modifier: Modifier = Modifier, viewModel : TodoViewModel) {
                 inputText = it
             })
             Button(onClick = {
-                viewModel.addTodo(inputText)
+//                viewModel.addTodo(inputText)
                 inputText = ""
             }) {
                 Text(text = "Add")
@@ -82,7 +81,12 @@ fun TodoItem(item :Todo , onDelete : ()->Unit) {
             Text(text = SimpleDateFormat("hh:mm a , dd/MM/yy", Locale.ENGLISH).format(item.createdAt)
             ,fontSize=10.sp,color = Color.Gray
             )
-            Text(text = item.title, fontSize=20.sp, color = Color.White)
+//            Text(text = item.title, fontSize=20.sp, color = Color.White)
+
+            Text(text = item.operatorName, fontSize=20.sp, color = Color.White)
+            Text(text = item.phoneNumber, fontSize=20.sp, color = Color.White)
+            Text(text = item.packageName, fontSize=20.sp, color = Color.White)
+            Text(text = item.price, fontSize=20.sp, color = Color.White)
         }
         IconButton(onClick = onDelete) {
             Icon(painter = painterResource(id = R.drawable.baseline_delete_24), contentDescription = "Delete",

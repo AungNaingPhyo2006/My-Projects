@@ -17,9 +17,22 @@ class TodoViewModel : ViewModel() {
     var todoList : LiveData<List<Todo>> = todoDao.getAllTodo()
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun addTodo(title : String){
-        viewModelScope.launch (Dispatchers.IO){
-            todoDao.addTodo(Todo(title=title, createdAt = Date.from(Instant.now())))
+//    fun addTodo(title : String){
+//        viewModelScope.launch (Dispatchers.IO){
+//            todoDao.addTodo(Todo(title=title, createdAt = Date.from(Instant.now())))
+//        }
+//    }
+    fun addTodo(packageName: String, operatorName: String, price: String, phoneNumber: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            todoDao.addTodo(
+                Todo(
+                    packageName = packageName,
+                    operatorName = operatorName,
+                    price = price,
+                    phoneNumber = phoneNumber,
+                    createdAt = Date.from(Instant.now())
+                )
+            )
         }
     }
 

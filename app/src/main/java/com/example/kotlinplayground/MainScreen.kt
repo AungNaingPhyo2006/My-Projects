@@ -24,11 +24,11 @@ fun MainScreen(todoViewModel: TodoViewModel) {
                 MobileTopup(navController,modifier = Modifier.padding(innerPadding),todoViewModel)
             }
         }
-        composable(Routes.successScreen) {
+        composable(Routes.successScreen + "/{packageName}/{price}/{operatorName}/{phoneNumber}") {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
             ) { innerPadding ->
-                SuccessPage( navController ,modifier = Modifier.padding(innerPadding))
+                SuccessPage( navController ,modifier = Modifier.padding(innerPadding),todoViewModel)
             }
         }
         composable(Routes.todoListPage) {

@@ -21,7 +21,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SuccessPage(navController: NavController, modifier: Modifier = Modifier) {
+fun SuccessPage(navController: NavController, modifier: Modifier = Modifier,viewModel: TodoViewModel) {
     val packageName = navController.currentBackStackEntry?.arguments?.getString("packageName") ?: "Unknown"
     val price = navController.currentBackStackEntry?.arguments?.getString("price") ?: "0"
     val operatorName = navController.currentBackStackEntry?.arguments?.getString("operatorName") ?: "Unknown"

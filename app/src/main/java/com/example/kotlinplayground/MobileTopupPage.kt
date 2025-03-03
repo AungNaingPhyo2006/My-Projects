@@ -40,6 +40,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -53,7 +54,7 @@ fun getCurrentDateTime(): String {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MobileTopup(navController: NavController,modifier: Modifier = Modifier , todoViewModel: TodoViewModel) {
+fun MobileTopup(navController: NavController,modifier: Modifier = Modifier , viewModel: TodoViewModel) {
     val phoneNumberUtil = MyanmarPhoneNumberUtil()
     val operatorName = remember { mutableStateOf("")}
     val phoneNumber = remember { mutableStateOf(TextFieldValue())}
@@ -219,8 +220,16 @@ fun MobileTopup(navController: NavController,modifier: Modifier = Modifier , tod
                 confirmButton = {
                     TextButton(onClick = {
                         if(operatorName.value.isNotEmpty() && operatorName.value != "Unknown"){
+
+                            viewModel.addTodo(
+                                packageName = packageName,
+                                operatorName = operatorName.value,
+                                price = price.toString(),
+                                phoneNumber = phoneNumber.value.text
+                            )
                             alertMessage.value = ""
                             showDialog.value = false
+//                            navController.navigate(Routes.todoListPage)
                             navController.navigate(Routes.successScreen + "/${packageName}/${price}/${operatorName.value}/${phoneNumber.value.text}")
                         }else{
                             if( phoneNumber.value.text.isEmpty() ||operatorName.value == "Unknown"){
