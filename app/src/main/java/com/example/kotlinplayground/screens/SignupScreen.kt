@@ -40,7 +40,11 @@ fun SignupScreen(modifier: Modifier = Modifier, navController: NavHostController
   var name by remember { mutableStateOf("") }
   var password by remember { mutableStateOf("") }
   var context = LocalContext.current
-    Column (modifier = modifier.fillMaxSize().padding(32.dp),
+  var isLoading by remember {
+    mutableStateOf(false)
+  }
+    Column (
+      modifier = modifier.fillMaxSize().padding(32.dp),
       verticalArrangement = Arrangement.Center,
       horizontalAlignment = Alignment.CenterHorizontally) {
       Text(text = "Hello Signup",
@@ -84,15 +88,25 @@ fun SignupScreen(modifier: Modifier = Modifier, navController: NavHostController
       )
       Spacer(modifier = Modifier.height(20.dp))
       Button(onClick = {
+        isLoading = true
         authViewModel.signup(email,name,password){success, errorMessage ->
           if(success){
-             Log.i("Success", "Success Message")
+            isLoading = false
+              navController.navigate("home"){
+                popUpTo("auth"){inclusive = true}
+              }
+//             Log.i("Success", "Success Message")
           }else{
+            isLoading = false
             AppUtil.showToast(context, errorMessage?:"Something went wrong!!")
           }
         }
-      }, modifier = Modifier.fillMaxWidth().height(50.dp)) {
-        Text(text = "Sign up", fontSize = 22.sp)
+      },
+        enabled = !isLoading,
+        modifier = Modifier.fillMaxWidth()
+          .height(50.dp)
+      ) {
+        Text(text = if(isLoading) "Creating Account." else "Sign up", fontSize = 22.sp)
       }
     }
 }

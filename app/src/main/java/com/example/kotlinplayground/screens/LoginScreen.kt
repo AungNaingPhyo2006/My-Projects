@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -25,15 +26,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.kotlinplayground.AppUtil
 import com.example.kotlinplayground.R
+import com.example.kotlinplayground.viewmodel.AuthViewModel
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController , authViewModel: AuthViewModel = viewModel()) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-
+    var context = LocalContext.current
+    var isLoading by remember {
+        mutableStateOf(false)
+    }
     Column (modifier = modifier.fillMaxSize().padding(32.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
@@ -72,8 +79,23 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController)
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.height(20.dp))
-        Button(onClick = {}, modifier = Modifier.fillMaxWidth().height(50.dp)) {
-            Text(text = "Login", fontSize = 22.sp)
+        Button(onClick = {
+            isLoading = true
+            authViewModel.login(email,password){success, errorMessage ->
+                if(success){
+                    isLoading = false
+                    navController.navigate("home"){
+                        popUpTo("auth"){inclusive = true}
+                    }
+                }else{
+                    isLoading = false
+                    AppUtil.showToast(context, errorMessage?:"Something went wrong!!")
+                }
+            }
+        },
+            enabled = !isLoading,
+            modifier = Modifier.fillMaxWidth().height(50.dp)) {
+            Text(text = if(isLoading) "Logging in." else "Login", fontSize = 22.sp)
         }
     }
 }
