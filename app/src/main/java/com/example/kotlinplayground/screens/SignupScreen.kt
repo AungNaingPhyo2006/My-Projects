@@ -1,5 +1,6 @@
 package com.example.kotlinplayground.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -25,16 +27,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.kotlinplayground.AppUtil
 import com.example.kotlinplayground.R
+import com.example.kotlinplayground.viewmodel.AuthViewModel
 
 @Composable
-fun SignupScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+fun SignupScreen(modifier: Modifier = Modifier, navController: NavHostController, authViewModel: AuthViewModel = viewModel()) {
 
   var email by remember { mutableStateOf("") }
   var name by remember { mutableStateOf("") }
   var password by remember { mutableStateOf("") }
-
+  var context = LocalContext.current
     Column (modifier = modifier.fillMaxSize().padding(32.dp),
       verticalArrangement = Arrangement.Center,
       horizontalAlignment = Alignment.CenterHorizontally) {
@@ -78,7 +83,15 @@ fun SignupScreen(modifier: Modifier = Modifier, navController: NavHostController
         visualTransformation = PasswordVisualTransformation()
       )
       Spacer(modifier = Modifier.height(20.dp))
-      Button(onClick = {}, modifier = Modifier.fillMaxWidth().height(50.dp)) {
+      Button(onClick = {
+        authViewModel.signup(email,name,password){success, errorMessage ->
+          if(success){
+             Log.i("Success", "Success Message")
+          }else{
+            AppUtil.showToast(context, errorMessage?:"Something went wrong!!")
+          }
+        }
+      }, modifier = Modifier.fillMaxWidth().height(50.dp)) {
         Text(text = "Sign up", fontSize = 22.sp)
       }
     }

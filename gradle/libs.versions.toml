@@ -13,6 +13,9 @@ mozillaRhino = "1.8.0"
 rhino = "17R4"
 rhinoVersion = "1.8.0"
 runtimeLivedata = "1.7.7"
+googleGmsGoogleServices = "4.4.2"
+firebaseAuth = "23.2.0"
+firebaseFirestore = "25.1.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,9 +37,12 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 rhino = { module = "org.mozilla:rhino", version.ref = "rhino" }
 rhino-v17r4 = { module = "org.mozilla:rhino", version.ref = "mozillaRhino" }
 rhino-v180 = { module = "org.mozilla:rhino", version.ref = "rhinoVersion" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 
