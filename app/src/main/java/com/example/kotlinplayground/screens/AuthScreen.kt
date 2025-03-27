@@ -55,5 +55,8 @@ fun AuthScreen(modifier: Modifier = Modifier, navController: NavHostController) 
         OutlinedButton(onClick = {navController.navigate("signup")}, modifier = Modifier.fillMaxWidth().height(50.dp)) {
             Text(text = "Signup", fontSize = 22.sp)
         }
+        OutlinedButton(onClick = {navController.navigate("home")}, modifier = Modifier.fillMaxWidth().height(50.dp)) {
+            Text(text = "Home", fontSize = 22.sp)
+        }
     }
 }
