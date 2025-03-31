@@ -76,4 +76,7 @@ dependencies {
 
     implementation("androidx.room:room-runtime:$room_version")
     kapt ("androidx.room:room-compiler:$room_version")
+
+    implementation("io.coil-kt:coil-compose:2.2.0")
+    implementation("com.tbuonomo:dotsindicator:5.1.0")
 }
