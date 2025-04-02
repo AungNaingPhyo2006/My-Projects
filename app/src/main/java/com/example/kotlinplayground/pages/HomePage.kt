@@ -27,6 +27,7 @@ fun HomePage(modifier: Modifier = Modifier) {
        Text(text = "Categories",
            style = TextStyle(fontSize = 18.sp , fontWeight = FontWeight.Bold)
        )
+       Spacer(modifier = Modifier.height(10.dp))
        CategoriesView()
    }
 }
