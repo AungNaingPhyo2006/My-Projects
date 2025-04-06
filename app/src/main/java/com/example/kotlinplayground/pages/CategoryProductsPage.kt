@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.kotlinplayground.components.ProductItemView
 import com.example.kotlinplayground.model.ProductModel
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
@@ -39,8 +40,7 @@ fun CategoryProductsPage(modifier: Modifier = Modifier,categoryId :String) {
     LazyColumn (modifier = modifier.fillMaxSize()
         .padding(16.dp)){
         items(productList.value){ item ->
-            Text(text= item.title)
-            Spacer(modifier = Modifier.height(10.dp))
+            ProductItemView(modifier,item)
         }
     }
 }
