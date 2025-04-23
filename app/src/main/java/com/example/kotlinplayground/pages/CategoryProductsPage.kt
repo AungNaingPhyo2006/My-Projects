@@ -1,5 +1,6 @@
 package com.example.kotlinplayground.pages
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -19,8 +20,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 
 @Composable
-fun CategoryProductsPage(modifier: Modifier = Modifier,categoryId :String) {
-    Text(text= "Category Product Page$categoryId")
+fun CategoryProductsPage(modifier: Modifier = Modifier, categoryId :String) {
+
     val productList = remember {
         mutableStateOf<List<ProductModel>>(emptyList())
     }
@@ -30,17 +31,29 @@ fun CategoryProductsPage(modifier: Modifier = Modifier,categoryId :String) {
             .whereEqualTo("category", categoryId)
             .get().addOnCompleteListener(){
                 if(it.isSuccessful){
-                    productList.value = it.result.documents.mapNotNull { doc ->
+                    val resultList = it.result.documents.mapNotNull { doc ->
                         doc.toObject(ProductModel::class.java)
                     }
-
+                    productList.value = resultList.plus(resultList).plus(resultList)
                 }
             }
     }
+    Text(
+        text = "Category Product Page is $categoryId",
+        modifier = Modifier.padding(top = 46.dp)
+    )
+//    Spacer(modifier = Modifier.height(50.dp))
     LazyColumn (modifier = modifier.fillMaxSize()
         .padding(16.dp)){
-        items(productList.value){ item ->
-            ProductItemView(modifier,item)
+        items(productList.value.chunked(2)){ rowItems ->
+            Row(modifier = modifier.padding(top = 6.dp)) {
+                rowItems.forEach {
+                    ProductItemView(product = it,modifier = Modifier.weight(1f))
+                }
+                if(rowItems.size == 1){
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+            }
         }
     }
 }
