@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -28,11 +29,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.kotlinplayground.AppUtil
 import com.example.kotlinplayground.GlobalNavigation
 import com.example.kotlinplayground.model.ProductModel
 
 @Composable
 fun ProductItemView(modifier: Modifier = Modifier,product: ProductModel) {
+    var context = LocalContext.current
 Card (modifier = modifier.padding(8.dp).clickable {
     GlobalNavigation.navController.navigate("product-details/" + product.id)
 }, shape = RoundedCornerShape(12.dp),
@@ -61,7 +64,9 @@ Card (modifier = modifier.padding(8.dp).clickable {
             )
             Spacer(modifier = Modifier.weight(1f))
 
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+                AppUtil.addItemToCart(context, product.id)
+            }) {
                 Icon(
                     imageVector = Icons.Default.ShoppingCart,
                     contentDescription = "Add to Cart"
